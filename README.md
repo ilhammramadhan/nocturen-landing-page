@@ -1,36 +1,140 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Nocturne Coffee
+
+A modern, high-performance landing page for a specialty coffee shop. Built with Next.js 14, Tailwind CSS, and shadcn/ui components.
+
+**Live Demo:** [nocturen-landing-page.vercel.app](https://nocturen-landing-page.vercel.app)
+
+![Hero Section](screenshots/hero.png)
+
+## Lighthouse Scores
+
+Achieved perfect 100 scores across all categories:
+
+![Lighthouse Scores](screenshots/lighthouse.png)
+
+| Category | Score |
+|----------|-------|
+| Performance | 100 |
+| Accessibility | 100 |
+| Best Practices | 100 |
+| SEO | 100 |
+
+## Features
+
+- **Dark Theme** - Industrial hipster aesthetic with warm gold accents
+- **Fully Responsive** - Optimized for all screen sizes
+- **Scroll Animations** - Smooth CSS-based animations with Intersection Observer
+- **SEO Optimized** - JSON-LD structured data, sitemap, robots.txt
+- **PWA Ready** - Web app manifest with custom icons
+- **Accessible** - WCAG compliant with proper ARIA labels and keyboard navigation
+- **Form Validation** - Contact form with Zod schema validation
+- **Image Optimization** - Next.js Image with blur placeholders
+
+## Screenshots
+
+### Hero Section
+![Hero](screenshots/hero.png)
+
+### About Section
+![About](screenshots/about.png)
+
+### Menu Section
+![Menu](screenshots/menu.png)
+
+### Gallery Section
+![Gallery](screenshots/gallery.png)
+
+### Location Section
+![Location](screenshots/location.png)
+
+## Tech Stack
+
+- **Framework:** Next.js 14 (App Router)
+- **Styling:** Tailwind CSS v4
+- **Components:** shadcn/ui
+- **Fonts:** Playfair Display (serif) + Inter (sans)
+- **Icons:** Lucide React
+- **Form Handling:** React Hook Form + Zod
+- **Toast Notifications:** Sonner
+- **Analytics:** Vercel Analytics & Speed Insights
+- **Deployment:** Vercel
+
+## Performance Optimizations
+
+- CSS-based animations (no JavaScript animation libraries)
+- Intersection Observer for scroll-triggered animations
+- Image blur placeholders for better LCP
+- Dynamic imports for below-fold components
+- Optimized font loading with `next/font`
 
 ## Getting Started
 
-First, run the development server:
+### Prerequisites
+
+- Node.js 18+
+- npm or yarn
+
+### Installation
 
 ```bash
+# Clone the repository
+git clone https://github.com/ilhammramadhan/nocturen-landing-page.git
+
+# Navigate to project directory
+cd nocturne-coffee
+
+# Install dependencies
+npm install
+
+# Run development server
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000) to view the site.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### Build for Production
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```bash
+npm run build
+npm start
+```
 
-## Learn More
+## Project Structure
 
-To learn more about Next.js, take a look at the following resources:
+```
+nocturne-coffee/
+├── src/
+│   ├── app/
+│   │   ├── layout.tsx      # Root layout with metadata
+│   │   ├── page.tsx        # Home page
+│   │   ├── globals.css     # Global styles & animations
+│   │   ├── manifest.ts     # PWA manifest
+│   │   ├── sitemap.ts      # Dynamic sitemap
+│   │   └── robots.ts       # Robots.txt config
+│   ├── components/
+│   │   ├── ui/             # shadcn/ui components
+│   │   ├── navbar.tsx      # Navigation bar
+│   │   ├── hero.tsx        # Hero section
+│   │   ├── about.tsx       # About section
+│   │   ├── menu.tsx        # Menu section
+│   │   ├── gallery.tsx     # Gallery with lightbox
+│   │   ├── location.tsx    # Location & contact info
+│   │   ├── contact.tsx     # Contact form
+│   │   ├── footer.tsx      # Footer
+│   │   └── motion.tsx      # Animation components
+│   └── lib/
+│       ├── data.ts         # Menu & business data
+│       ├── images.ts       # Image data with blur placeholders
+│       └── schema.ts       # JSON-LD structured data
+├── public/
+│   └── icons/              # PWA icons
+└── screenshots/            # Project screenshots
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## License
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+MIT License
 
-## Deploy on Vercel
+## Author
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Ilham Ramadhan - [GitHub](https://github.com/ilhammramadhan)
