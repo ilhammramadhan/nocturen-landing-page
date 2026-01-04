@@ -10,7 +10,7 @@ import {
 } from "@/components/ui/carousel";
 import { Separator } from "@/components/ui/separator";
 import { FadeIn } from "@/components/motion";
-import { galleryImages } from "@/lib/data";
+import { galleryImagesWithBlur } from "@/lib/images";
 
 export function Gallery() {
   return (
@@ -42,7 +42,7 @@ export function Gallery() {
             aria-label="Gallery images carousel"
           >
             <CarouselContent className="-ml-2 md:-ml-4">
-              {galleryImages.map((image, index) => (
+              {galleryImagesWithBlur.map((image, index) => (
                 <CarouselItem
                   key={index}
                   className="pl-2 md:pl-4 md:basis-1/2 lg:basis-1/3"
@@ -54,6 +54,8 @@ export function Gallery() {
                       fill
                       className="object-cover transition-transform duration-500 group-hover:scale-110"
                       sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                      placeholder="blur"
+                      blurDataURL={image.blurDataURL}
                     />
                     {/* Overlay on hover */}
                     <div

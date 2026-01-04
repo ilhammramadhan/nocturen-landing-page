@@ -5,6 +5,7 @@ import { Coffee, Moon, Sparkles } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
 import { FadeIn, StaggerContainer, StaggerItem } from "@/components/motion";
+import { images } from "@/lib/images";
 
 const features = [
   {
@@ -36,11 +37,13 @@ export function About() {
           <FadeIn direction="left">
             <div className="relative aspect-[4/5] rounded-lg overflow-hidden">
               <Image
-                src="https://images.unsplash.com/photo-1442512595331-e89e73853f31?q=80&w=2070&auto=format&fit=crop"
-                alt="Barista carefully crafting a pour-over coffee"
+                src={images.about.src}
+                alt={images.about.alt}
                 fill
                 className="object-cover"
                 sizes="(max-width: 1024px) 100vw, 50vw"
+                placeholder="blur"
+                blurDataURL={images.about.blurDataURL}
               />
               {/* Gold accent border */}
               <div

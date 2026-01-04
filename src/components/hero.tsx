@@ -1,10 +1,12 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { ArrowDown } from "lucide-react";
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
+import { images } from "@/lib/images";
 
 export function Hero() {
   return (
@@ -14,14 +16,18 @@ export function Hero() {
       aria-label="Welcome to Nocturne Coffee"
     >
       {/* Background Image with Overlay */}
-      <div
-        className="absolute inset-0 bg-cover bg-center bg-no-repeat"
-        style={{
-          backgroundImage: `url('https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?q=80&w=2070&auto=format&fit=crop')`,
-        }}
-        role="img"
-        aria-label="Coffee shop atmosphere"
-      >
+      <div className="absolute inset-0">
+        <Image
+          src={images.hero.src}
+          alt={images.hero.alt}
+          fill
+          priority
+          className="object-cover"
+          sizes="100vw"
+          placeholder="blur"
+          blurDataURL={images.hero.blurDataURL}
+          quality={85}
+        />
         <div className="absolute inset-0 bg-background/85" />
       </div>
 
