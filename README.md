@@ -47,6 +47,9 @@ Achieved perfect 100 scores across all categories:
 ### Location Section
 ![Location](screenshots/location.png)
 
+### Contact & Footer
+![Contact](screenshots/contact.png)
+
 ## Tech Stack
 
 - **Framework:** Next.js 14 (App Router)
