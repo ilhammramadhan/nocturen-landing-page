@@ -21,7 +21,6 @@ export function Hero() {
           alt={images.hero.alt}
           fill
           priority
-          fetchPriority="high"
           className="object-cover"
           sizes="100vw"
           placeholder="blur"
@@ -55,11 +54,8 @@ export function Hero() {
           </Badge>
         </div>
 
-        {/* Headline */}
-        <h1
-          className="font-serif text-5xl md:text-7xl lg:text-8xl font-bold text-foreground mb-6 leading-tight opacity-0 animate-fade-in-up"
-          style={{ animationDelay: "0.3s", animationFillMode: "forwards" }}
-        >
+        {/* Headline - No opacity animation on LCP element for performance */}
+        <h1 className="font-serif text-5xl md:text-7xl lg:text-8xl font-bold text-foreground mb-6 leading-tight">
           Where Night
           <br />
           <span className="text-primary">Meets Coffee</span>
