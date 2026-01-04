@@ -112,7 +112,7 @@ export function Hero() {
       >
         <Link
           href="#about"
-          className="text-muted-foreground hover:text-primary transition-colors cursor-pointer"
+          className="flex items-center justify-center w-11 h-11 rounded-full text-muted-foreground hover:text-primary hover:bg-primary/10 transition-colors cursor-pointer"
           aria-label="Scroll to about section"
         >
           <ArrowDown className="h-6 w-6" aria-hidden="true" />

@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 192 192" width="192" height="192">
+  <rect width="192" height="192" fill="#0A0A0A" rx="24"/>
+  <g transform="translate(32, 32)">
+    <!-- Coffee cup -->
+    <path d="M20 40 L20 100 Q20 120 40 120 L88 120 Q108 120 108 100 L108 40 Z" fill="#D4A574"/>
+    <!-- Cup handle -->
+    <path d="M108 50 Q140 50 140 80 Q140 110 108 110" stroke="#D4A574" stroke-width="8" fill="none"/>
+    <!-- Steam lines -->
+    <path d="M40 30 Q50 15 40 0" stroke="#D4A574" stroke-width="4" fill="none" opacity="0.6"/>
+    <path d="M64 30 Q74 10 64 -5" stroke="#D4A574" stroke-width="4" fill="none" opacity="0.6"/>
+    <path d="M88 30 Q98 15 88 0" stroke="#D4A574" stroke-width="4" fill="none" opacity="0.6"/>
+  </g>
+</svg>
