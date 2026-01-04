@@ -68,7 +68,7 @@ export function Location() {
           {/* Info Cards */}
           <StaggerContainer className="space-y-4" staggerDelay={0.1}>
             {/* Address Card */}
-            <StaggerItem>
+            <StaggerItem index={0}>
               <Card className="bg-card border-border">
                 <CardHeader className="pb-3">
                   <CardTitle className="flex items-center gap-2 text-lg">
@@ -100,7 +100,7 @@ export function Location() {
             </StaggerItem>
 
             {/* Hours Card */}
-            <StaggerItem>
+            <StaggerItem index={1}>
               <Card className="bg-card border-border">
                 <CardHeader className="pb-3">
                   <CardTitle className="flex items-center gap-2 text-lg">
@@ -127,7 +127,7 @@ export function Location() {
             </StaggerItem>
 
             {/* Contact Card */}
-            <StaggerItem>
+            <StaggerItem index={2}>
               <Card className="bg-card border-border">
                 <CardHeader className="pb-3">
                   <CardTitle className="flex items-center gap-2 text-lg">
@@ -155,7 +155,7 @@ export function Location() {
             </StaggerItem>
 
             {/* CTA */}
-            <StaggerItem>
+            <StaggerItem index={3}>
               <Button asChild size="lg" className="w-full cursor-pointer">
                 <a
                   href="https://maps.google.com/?q=Kemang+Raya+Jakarta"

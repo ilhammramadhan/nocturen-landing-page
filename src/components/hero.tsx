@@ -3,7 +3,6 @@
 import Link from "next/link";
 import Image from "next/image";
 import { ArrowDown } from "lucide-react";
-import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { images } from "@/lib/images";
@@ -22,6 +21,7 @@ export function Hero() {
           alt={images.hero.alt}
           fill
           priority
+          fetchPriority="high"
           className="object-cover"
           sizes="100vw"
           placeholder="blur"
@@ -43,10 +43,9 @@ export function Hero() {
       {/* Content */}
       <div className="relative z-10 container mx-auto px-4 text-center">
         {/* Badge */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, delay: 0.2 }}
+        <div
+          className="animate-fade-in-up"
+          style={{ animationDelay: "0.2s", animationFillMode: "forwards" }}
         >
           <Badge
             variant="outline"
@@ -54,37 +53,31 @@ export function Hero() {
           >
             Open Until 2AM
           </Badge>
-        </motion.div>
+        </div>
 
         {/* Headline */}
-        <motion.h1
-          className="font-serif text-5xl md:text-7xl lg:text-8xl font-bold text-foreground mb-6 leading-tight"
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.3 }}
+        <h1
+          className="font-serif text-5xl md:text-7xl lg:text-8xl font-bold text-foreground mb-6 leading-tight opacity-0 animate-fade-in-up"
+          style={{ animationDelay: "0.3s", animationFillMode: "forwards" }}
         >
           Where Night
           <br />
           <span className="text-primary">Meets Coffee</span>
-        </motion.h1>
+        </h1>
 
         {/* Tagline */}
-        <motion.p
-          className="text-muted-foreground text-lg md:text-xl max-w-2xl mx-auto mb-10"
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, delay: 0.5 }}
+        <p
+          className="text-muted-foreground text-lg md:text-xl max-w-2xl mx-auto mb-10 opacity-0 animate-fade-in-up"
+          style={{ animationDelay: "0.5s", animationFillMode: "forwards" }}
         >
           Specialty coffee crafted for the midnight hour. Experience the art of
           coffee in an intimate, late-night atmosphere.
-        </motion.p>
+        </p>
 
         {/* CTAs */}
-        <motion.div
-          className="flex flex-col sm:flex-row gap-4 justify-center"
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, delay: 0.7 }}
+        <div
+          className="flex flex-col sm:flex-row gap-4 justify-center opacity-0 animate-fade-in-up"
+          style={{ animationDelay: "0.7s", animationFillMode: "forwards" }}
         >
           <Button asChild size="lg" className="text-base cursor-pointer">
             <Link href="#menu">Explore Menu</Link>
@@ -97,27 +90,22 @@ export function Hero() {
           >
             <Link href="#location">Find Us</Link>
           </Button>
-        </motion.div>
+        </div>
       </div>
 
       {/* Scroll Indicator */}
-      <motion.div
-        className="absolute bottom-8 left-1/2 -translate-x-1/2"
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1, y: [0, 10, 0] }}
-        transition={{
-          opacity: { delay: 1, duration: 0.5 },
-          y: { delay: 1.5, duration: 1.5, repeat: Infinity },
-        }}
+      <div
+        className="absolute bottom-8 left-1/2 -translate-x-1/2 opacity-0 animate-fade-in"
+        style={{ animationDelay: "1s", animationFillMode: "forwards" }}
       >
         <Link
           href="#about"
-          className="flex items-center justify-center w-11 h-11 rounded-full text-muted-foreground hover:text-primary hover:bg-primary/10 transition-colors cursor-pointer"
+          className="flex items-center justify-center w-11 h-11 rounded-full text-muted-foreground hover:text-primary hover:bg-primary/10 transition-colors cursor-pointer animate-bounce-arrow"
           aria-label="Scroll to about section"
         >
           <ArrowDown className="h-6 w-6" aria-hidden="true" />
         </Link>
-      </motion.div>
+      </div>
     </section>
   );
 }

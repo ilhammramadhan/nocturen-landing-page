@@ -61,7 +61,7 @@ export function Menu() {
               <TabsContent key={category.id} value={category.id}>
                 <StaggerContainer className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
                   {category.items.map((item, index) => (
-                    <StaggerItem key={index}>
+                    <StaggerItem key={index} index={index}>
                       <Card className="bg-card border-border hover:border-primary/50 transition-all duration-300 cursor-pointer group h-full">
                         <CardContent className="p-6">
                           <div className="flex justify-between items-start mb-3">

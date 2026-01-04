@@ -82,7 +82,7 @@ export function About() {
             {/* Feature Cards */}
             <StaggerContainer className="grid gap-4" staggerDelay={0.15}>
               {features.map((feature, index) => (
-                <StaggerItem key={index}>
+                <StaggerItem key={index} index={index}>
                   <Card className="bg-background border-border hover:border-primary/50 transition-colors cursor-pointer group">
                     <CardContent className="flex items-start gap-4 p-4">
                       <div

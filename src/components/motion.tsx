@@ -1,7 +1,53 @@
 "use client";
 
-import { motion, useInView, useReducedMotion } from "framer-motion";
-import { useRef, ReactNode } from "react";
+import { useEffect, useRef, useState, ReactNode } from "react";
+
+function useReducedMotion(): boolean {
+  const [prefersReducedMotion, setPrefersReducedMotion] = useState(false);
+
+  useEffect(() => {
+    const mediaQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
+    setPrefersReducedMotion(mediaQuery.matches);
+
+    const handler = (e: MediaQueryListEvent) => setPrefersReducedMotion(e.matches);
+    mediaQuery.addEventListener("change", handler);
+    return () => mediaQuery.removeEventListener("change", handler);
+  }, []);
+
+  return prefersReducedMotion;
+}
+
+function useInView(options: { once?: boolean; margin?: string } = {}) {
+  const ref = useRef<HTMLDivElement>(null);
+  const [isInView, setIsInView] = useState(false);
+
+  useEffect(() => {
+    const element = ref.current;
+    if (!element) return;
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setIsInView(true);
+          if (options.once) {
+            observer.unobserve(element);
+          }
+        } else if (!options.once) {
+          setIsInView(false);
+        }
+      },
+      {
+        rootMargin: options.margin || "-100px",
+        threshold: 0.1,
+      }
+    );
+
+    observer.observe(element);
+    return () => observer.unobserve(element);
+  }, [options.once, options.margin]);
+
+  return { ref, isInView };
+}
 
 interface FadeInProps {
   children: ReactNode;
@@ -17,19 +63,17 @@ export function FadeIn({
   className = "",
   delay = 0,
   direction = "up",
-  duration = 0.5,
   once = true,
 }: FadeInProps) {
-  const ref = useRef(null);
-  const isInView = useInView(ref, { once, margin: "-100px" });
+  const { ref, isInView } = useInView({ once, margin: "-100px" });
   const prefersReducedMotion = useReducedMotion();
 
-  const directions = {
-    up: { y: 40, x: 0 },
-    down: { y: -40, x: 0 },
-    left: { x: 40, y: 0 },
-    right: { x: -40, y: 0 },
-    none: { x: 0, y: 0 },
+  const directionClass: Record<string, string> = {
+    up: "animate-fade-in-up",
+    down: "animate-fade-in-down",
+    left: "animate-fade-in-left",
+    right: "animate-fade-in-right",
+    none: "animate-fade-in",
   };
 
   if (prefersReducedMotion) {
@@ -37,26 +81,16 @@ export function FadeIn({
   }
 
   return (
-    <motion.div
+    <div
       ref={ref}
-      className={className}
-      initial={{
-        opacity: 0,
-        ...directions[direction],
-      }}
-      animate={{
-        opacity: isInView ? 1 : 0,
-        x: isInView ? 0 : directions[direction].x,
-        y: isInView ? 0 : directions[direction].y,
-      }}
-      transition={{
-        duration,
-        delay,
-        ease: [0.21, 0.47, 0.32, 0.98],
+      className={`${className} ${isInView ? directionClass[direction] : "opacity-0"}`}
+      style={{
+        animationDelay: isInView ? `${delay}s` : undefined,
+        animationFillMode: "forwards",
       }}
     >
       {children}
-    </motion.div>
+    </div>
   );
 }
 
@@ -69,10 +103,8 @@ interface StaggerContainerProps {
 export function StaggerContainer({
   children,
   className = "",
-  staggerDelay = 0.1,
 }: StaggerContainerProps) {
-  const ref = useRef(null);
-  const isInView = useInView(ref, { once: true, margin: "-100px" });
+  const { ref, isInView } = useInView({ once: true, margin: "-100px" });
   const prefersReducedMotion = useReducedMotion();
 
   if (prefersReducedMotion) {
@@ -80,67 +112,62 @@ export function StaggerContainer({
   }
 
   return (
-    <motion.div
-      ref={ref}
-      className={className}
-      initial="hidden"
-      animate={isInView ? "visible" : "hidden"}
-      variants={{
-        hidden: {},
-        visible: {
-          transition: {
-            staggerChildren: staggerDelay,
-          },
-        },
-      }}
-    >
+    <div ref={ref} className={className} data-in-view={isInView}>
       {children}
-    </motion.div>
+    </div>
   );
 }
 
 interface StaggerItemProps {
   children: ReactNode;
   className?: string;
+  index?: number;
 }
 
-export function StaggerItem({ children, className = "" }: StaggerItemProps) {
+export function StaggerItem({ children, className = "", index = 0 }: StaggerItemProps) {
   const prefersReducedMotion = useReducedMotion();
+  const [parentInView, setParentInView] = useState(false);
+
+  useEffect(() => {
+    // Check if parent StaggerContainer is in view
+    const checkParent = () => {
+      const element = document.querySelector(`[data-in-view="true"]`);
+      if (element) setParentInView(true);
+    };
+
+    // Use MutationObserver to detect changes
+    const observer = new MutationObserver(checkParent);
+    observer.observe(document.body, { attributes: true, subtree: true, attributeFilter: ["data-in-view"] });
+    checkParent();
+
+    return () => observer.disconnect();
+  }, []);
 
   if (prefersReducedMotion) {
     return <div className={className}>{children}</div>;
   }
 
   return (
-    <motion.div
-      className={className}
-      variants={{
-        hidden: { opacity: 0, y: 20 },
-        visible: {
-          opacity: 1,
-          y: 0,
-          transition: {
-            duration: 0.5,
-            ease: [0.21, 0.47, 0.32, 0.98],
-          },
-        },
+    <div
+      className={`${className} ${parentInView ? "animate-fade-in-up" : "opacity-0"}`}
+      style={{
+        animationDelay: parentInView ? `${index * 0.1}s` : undefined,
+        animationFillMode: "forwards",
       }}
     >
       {children}
-    </motion.div>
+    </div>
   );
 }
 
 interface ScaleOnHoverProps {
   children: ReactNode;
   className?: string;
-  scale?: number;
 }
 
 export function ScaleOnHover({
   children,
   className = "",
-  scale = 1.02,
 }: ScaleOnHoverProps) {
   const prefersReducedMotion = useReducedMotion();
 
@@ -149,13 +176,10 @@ export function ScaleOnHover({
   }
 
   return (
-    <motion.div
-      className={className}
-      whileHover={{ scale }}
-      whileTap={{ scale: 0.98 }}
-      transition={{ duration: 0.2 }}
+    <div
+      className={`${className} transition-transform duration-200 hover:scale-[1.02] active:scale-[0.98]`}
     >
       {children}
-    </motion.div>
+    </div>
   );
 }
